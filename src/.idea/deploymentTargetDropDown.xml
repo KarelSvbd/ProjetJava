@@ -2,6 +2,7 @@
 <project version="4">
   <component name="deploymentTargetDropDown">
 <<<<<<< HEAD
+<<<<<<< HEAD
     <targetSelectedWithDropDown>
       <Target>
         <type value="QUICK_BOOT_TARGET" />
@@ -15,6 +16,8 @@
     </targetSelectedWithDropDown>
     <timeTargetWasSelectedWithDropDown value="2021-11-03T12:44:46.541585800Z" />
 =======
+=======
+>>>>>>> parent of fe781d8 (changer le nom d'affichage)
     <runningDeviceTargetSelectedWithDropDown>
       <Target>
         <type value="RUNNING_DEVICE_TARGET" />
@@ -27,6 +30,9 @@
       </Target>
     </runningDeviceTargetSelectedWithDropDown>
     <timeTargetWasSelectedWithDropDown value="2021-11-03T12:08:30.028557800Z" />
+<<<<<<< HEAD
 >>>>>>> parent of 78bcaa1 (Merge branch 'main' of https://github.com/KarelSvbd/ProjetJava into main)
+=======
+>>>>>>> parent of fe781d8 (changer le nom d'affichage)
   </component>
 </project>
