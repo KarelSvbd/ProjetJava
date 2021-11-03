@@ -1,10 +1,3 @@
-/*  Projet  : Trip Buddys
-    Equipe  : Buddys
-                Rui Mota, Jose Ferreira, Karel Vilém Svoboda
-    Date    : 03-11-2021 -> XX-XX-XXXX
-
-    Version : 0.1
- */
 package com.example.myapplication;
 
 import androidx.fragment.app.FragmentActivity;
@@ -54,8 +47,5 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         LatLng sydney = new LatLng(-34, 151);
         mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
-        mMap.setMinZoomPreference(6.0f);
-        mMap.setMaxZoomPreference(14.0f);
     }
-
 }
