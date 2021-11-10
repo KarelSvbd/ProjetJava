@@ -10,10 +10,11 @@ package com.example.buddys;
 //Api de Google qui permet d'acceder aux services de localisation
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationServices;
 
 
 public class Map {
-    FusedLocationProviderClient fusedLocationProviderClient;
+
     LocationRequest locationRequest;
 
     public static final int DEFAULT_UPDATE_INTERVAL = 30;
@@ -28,6 +29,7 @@ public class Map {
     }
 
     //Permet de définir la précision en fonction de la puissance de l'appareil
+    //Retourne le texte avec l'utlisation de la batterie
     public String definitionPriorite(Integer puissance){
         String result = "";
         switch(puissance){
@@ -51,5 +53,9 @@ public class Map {
         }
         return result;
     }
+
+
+
+
 
 }
