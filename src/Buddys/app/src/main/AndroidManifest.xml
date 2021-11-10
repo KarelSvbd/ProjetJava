@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Buddys">
         <activity
+            android:name=".SpotifyActivity"
+            android:exported="true" />
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
@@ -18,6 +21,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".mainexample" />
+        <activity android:name=".ThirdActivity" />
     </application>
 
 </manifest>
