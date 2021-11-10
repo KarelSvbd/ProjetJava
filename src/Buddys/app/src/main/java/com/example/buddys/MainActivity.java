@@ -14,6 +14,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Map nouvelleMap = new Map();
         button = (Button) findViewById(R.id.btnMenu);
         button.setOnClickListener(new View.OnClickListener(){
             @Override
