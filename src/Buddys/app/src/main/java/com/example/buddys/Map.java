@@ -16,6 +16,17 @@ import com.google.android.gms.location.LocationServices;
 public class Map {
 
     LocationRequest locationRequest;
+    Integer _lat = 0;
+    Integer _long = 0;
+
+    public Integer getLat() {
+        return _lat;
+    }
+
+    public Integer getLong() {
+        return _long;
+    }
+
 
     public static final int DEFAULT_UPDATE_INTERVAL = 30;
     public static final int FAST_UPDATE_INTERVAL = 5;
@@ -53,6 +64,8 @@ public class Map {
         }
         return result;
     }
+
+
 
 
 

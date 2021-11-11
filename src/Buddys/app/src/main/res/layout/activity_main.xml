@@ -9,10 +9,77 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="414dp"
         android:layout_height="730dp"
+        android:background="#EDC779"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/lblLongitude"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="54dp"
+            android:layout_marginTop="124dp"
+            android:layout_marginEnd="72dp"
+            android:layout_marginBottom="349dp"
+            android:text="lblLongitude"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toTopOf="@+id/btnAllerCarte"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/lblInformations2"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <TextView
+            android:id="@+id/lblLatitude"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="54dp"
+            android:layout_marginTop="88dp"
+            android:layout_marginEnd="88dp"
+            android:layout_marginBottom="9dp"
+            android:text="lblLatitude"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toTopOf="@+id/lblLongitude"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/lblInformations"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <TextView
+            android:id="@+id/lblInformations"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="92dp"
+            android:layout_marginTop="88dp"
+            android:layout_marginEnd="236dp"
+            android:layout_marginBottom="9dp"
+            android:text="Latitude :"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toTopOf="@+id/lblInformations2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="1.0" />
+
+        <TextView
+            android:id="@+id/lblInformations2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="71dp"
+            android:layout_marginTop="124dp"
+            android:layout_marginEnd="236dp"
+            android:layout_marginBottom="349dp"
+            android:text="Longitude  :"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toTopOf="@+id/btnAllerCarte"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0" />
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
@@ -26,7 +93,7 @@
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintVertical_bias="0.853" />
 
         <Button
             android:id="@+id/btnPrecedent2"
@@ -37,10 +104,9 @@
             app:icon="@android:drawable/ic_media_pause"
             app:layout_constraintBottom_toBottomOf="@+id/toolbar"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.497"
             app:layout_constraintStart_toStartOf="@+id/toolbar"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintVertical_bias="1.0" />
 
         <Button
             android:id="@+id/btnPrecedent3"
@@ -64,7 +130,7 @@
             android:background="#F8B24A"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="1.0">
@@ -97,21 +163,20 @@
 
         <TextView
             android:id="@+id/lblMusique"
-            android:layout_width="413dp"
-            android:layout_height="19dp"
-            android:layout_marginTop="56dp"
-            android:layout_marginBottom="577dp"
+            android:layout_width="match_parent"
+            android:layout_height="22dp"
+            android:layout_marginTop="240dp"
             android:background="#EA8A4B"
             android:text="Musique En cours"
             android:textAlignment="center"
             android:textColor="#FFFFFF"
             android:textStyle="italic"
-            app:layout_constraintBottom_toBottomOf="@+id/map"
+            app:layout_constraintBottom_toTopOf="@+id/constraintLayout"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.843"
+            app:layout_constraintVertical_bias="1.0"
             tools:ignore="UnknownId" />
 
         <Button
@@ -127,6 +192,36 @@
             app:layout_constraintStart_toStartOf="@+id/toolbar"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="1.0" />
+
+        <Button
+            android:id="@+id/btnAllerCarte"
+            android:layout_width="413dp"
+            android:layout_height="72dp"
+            android:layout_marginTop="500dp"
+            android:background="#FF9800"
+            android:text="Aller sur la carte"
+            app:layout_constraintBottom_toTopOf="@+id/btnPrecedent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="1.0" />
+
+        <TextView
+            android:id="@+id/LblInformations"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="176dp"
+            android:layout_marginTop="28dp"
+            android:layout_marginEnd="177dp"
+            android:layout_marginBottom="453dp"
+            android:foregroundTint="#FFFFFF"
+            android:text="Informations"
+            android:textSize="24sp"
+            app:layout_constraintBottom_toTopOf="@+id/btnAllerCarte"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
