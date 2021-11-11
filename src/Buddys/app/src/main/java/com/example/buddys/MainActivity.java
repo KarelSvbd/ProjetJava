@@ -10,6 +10,7 @@ import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Build;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
@@ -63,9 +64,12 @@ public class MainActivity extends AppCompatActivity{
     public void nextMusic(){
 
     }
-
+    @Override
+    public  boolean onOptionsItemSelected(MenuItem item){
+        return super.onOptionsItemSelected(item);
+    }
     public void openSpotifyActivity(){
-        Intent intent = new Intent(this, SpotifyActivity.class);
+        Intent intent = new Intent(this, Preference.class);
         startActivity(intent);
     }
 
