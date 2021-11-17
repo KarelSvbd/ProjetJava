@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.TripBuddy">
         <activity
+            android:name=".HomeActivity"
+           android:label="Home"/>
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>

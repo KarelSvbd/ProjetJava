@@ -3,31 +3,29 @@ package com.example.tripbuddy;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.os.Handler;
 import android.view.Menu;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 
 public class MainActivity extends AppCompatActivity {
-    private Button button;
-
+    private static int Splash_Time_Out = 4000;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        button = (Button) findViewById(R.id.button);
-        button.setOnClickListener(new View.OnClickListener() {
+        new Handler().postDelayed(new Runnable() {
             @Override
-            public void onClick(View view) {
-                openSettings();
+            public void run(){
+                Intent homeIntent = new Intent(MainActivity.this,HomeActivity.class);
+                startActivity(homeIntent);
+                finish();
             }
-        });
-    }
-    public  void openSettings(){
-        Intent intent = new Intent(this, Preference.class);
-        startActivity(intent);
+        }, Splash_Time_Out);
     }
     @Override
     public boolean onOptionsItemSelected(MenuItem item){
