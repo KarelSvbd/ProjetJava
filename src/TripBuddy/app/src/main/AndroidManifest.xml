@@ -12,9 +12,11 @@
         <activity
             android:name=".HomeActivity"
            android:label="Home"/>
+
         <activity
             android:name=".UserActivity"
             android:label="User"/>
+
         <activity
             android:name=".MainActivity"
             android:exported="true">

@@ -26,6 +26,7 @@ public class MainActivity extends AppCompatActivity {
                 finish();
             }
         }, Splash_Time_Out);
+        getSupportActionBar().hide();
     }
     @Override
     public boolean onCreateOptionsMenu (Menu menu){

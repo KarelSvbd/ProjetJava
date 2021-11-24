@@ -18,6 +18,7 @@ import android.widget.Button;
 
 public class UserActivity extends AppCompatActivity {
     private Button btnBack;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,6 +31,7 @@ public class UserActivity extends AppCompatActivity {
                 openHome();
             }
         });
+        getSupportActionBar().hide();
     }
     public  void openHome(){
         Intent intent = new Intent(this, HomeActivity.class);
