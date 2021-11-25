@@ -31,7 +31,7 @@ public class UserActivity extends AppCompatActivity {
                 openHome();
             }
         });
-        getSupportActionBar().hide();
+        //getSupportActionBar().hide();
     }
     public  void openHome(){
         Intent intent = new Intent(this, HomeActivity.class);

@@ -13,7 +13,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 
 public class MainActivity extends AppCompatActivity {
-    private static int Splash_Time_Out = 4000;
+    private static int Splash_Time_Out = 2000;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
                 finish();
             }
         }, Splash_Time_Out);
-        getSupportActionBar().hide();
+        //getSupportActionBar().hide();
     }
     @Override
     public boolean onCreateOptionsMenu (Menu menu){

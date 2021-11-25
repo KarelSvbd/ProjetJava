@@ -1,5 +1,6 @@
 package com.example.tripbuddy;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -16,7 +17,11 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 
-public class HomeActivity extends AppCompatActivity {
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.OnMapReadyCallback;
+
+public class HomeActivity extends AppCompatActivity implements OnMapReadyCallback{
     private Button button;
     private Button btnProf;
     @Override
@@ -30,7 +35,7 @@ public class HomeActivity extends AppCompatActivity {
                 openUser();
             }
         });
-        getSupportActionBar().hide();
+        //getSupportActionBar().hide();
         button = (Button) findViewById(R.id.button);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -38,7 +43,12 @@ public class HomeActivity extends AppCompatActivity {
                 openSettings();
             }
         });
+
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.maps);
+        mapFragment.getMapAsync(this);
     }
+
+
 
 
     public  void openSettings(){
@@ -48,5 +58,10 @@ public class HomeActivity extends AppCompatActivity {
     public  void openUser(){
         Intent Intent2 = new Intent(this,UserActivity.class);
         startActivity(Intent2);
+    }
+
+    @Override
+    public void onMapReady(@NonNull GoogleMap googleMap) {
+
     }
 }

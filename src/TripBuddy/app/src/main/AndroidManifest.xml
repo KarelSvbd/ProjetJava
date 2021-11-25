@@ -9,6 +9,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.TripBuddy">
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyA6XIjbAJJcRq44WnbFJl2OMtGy4dvZ4uk"></meta-data>
         <activity
             android:name=".HomeActivity"
            android:label="Home"/>
