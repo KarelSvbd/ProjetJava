@@ -8,9 +8,13 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentSender;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.drawable.Drawable;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.location.LocationRequest;
+import android.media.MediaPlayer;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
@@ -32,11 +36,17 @@ import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.location.LocationSettingsRequest;
 import com.google.android.gms.location.LocationSettingsResponse;
 import com.google.android.gms.location.LocationSettingsStatusCodes;
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.GoogleMap.OnMyLocationButtonClickListener;
 import com.google.android.gms.maps.GoogleMap.OnMyLocationClickListener;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptor;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 
@@ -49,19 +59,27 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+
+import android.widget.TextView;
 import android.widget.Toast;
+
+import java.text.DecimalFormat;
 
 public class HomeActivity extends AppCompatActivity implements OnMyLocationButtonClickListener, OnMyLocationClickListener, OnMapReadyCallback, ActivityCompat.OnRequestPermissionsResultCallback, LocationListener {
     private Button button;
     private Button btnProf;
     private LocationRequest locationRequest;
-    private LocationCallback locationCallback;
     private LocationManager locationManager;
+    private Marker markerUser;
 
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 1;
     private boolean permissionDenied = false;
 
     private GoogleMap map;
+
+    private LatLng postionUser = new LatLng(1,1);
+
+
 
 
 
@@ -84,6 +102,7 @@ public class HomeActivity extends AppCompatActivity implements OnMyLocationButto
             @Override
             public void onClick(View view) {
                 openSettings();
+
             }
         });
 
@@ -108,6 +127,7 @@ public class HomeActivity extends AppCompatActivity implements OnMyLocationButto
     @SuppressLint("MissingPermission")
     private void getLocation() {
         try{
+            System.out.println("ales");
             locationManager = (LocationManager) getApplicationContext().getSystemService(LOCATION_SERVICE);
             locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000, 5, HomeActivity.this);
         }catch (Exception e){
@@ -130,6 +150,13 @@ public class HomeActivity extends AppCompatActivity implements OnMyLocationButto
 
     @Override
     public void onMapReady(@NonNull GoogleMap googleMap) {
+        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(postionUser, 5));
+        map = googleMap;
+        markerUser = map.addMarker(new MarkerOptions()
+                .position(postionUser)
+                .title("Chargement"));
+
+
     }
 
     private void enableMyLocation() {
@@ -147,10 +174,28 @@ public class HomeActivity extends AppCompatActivity implements OnMyLocationButto
 
     @Override
     public void onLocationChanged(@NonNull Location location) {
-        for (Integer i = 0; i<100; i++){
-            System.out.println(location.getLatitude());
-        }
 
+        postionUser = new LatLng(location.getLatitude(), location.getLongitude());
+        map.moveCamera(CameraUpdateFactory.newLatLngZoom(postionUser, 20));
+        markerUser.remove();
+        markerUser = map.addMarker(new MarkerOptions()
+                .position(postionUser)
+                .title("Votre position")
+                .icon(bitmapDescriptorFromVector(getApplicationContext(), R.drawable.ic_baseline_directions_car_24)));
+        TextView lblSpeed = findViewById(R.id.lblSpeed);
+
+        lblSpeed.setText(String.valueOf(Math.round(location.getSpeed() * 3.6)));
+
+    }
+
+    private BitmapDescriptor bitmapDescriptorFromVector(Context context, Integer vectorResId){
+        Drawable vectorDrawable = ContextCompat.getDrawable(context, vectorResId);
+        vectorDrawable.setBounds(0,0,vectorDrawable.getIntrinsicWidth(),
+                vectorDrawable.getIntrinsicHeight());
+        Bitmap bitmap= Bitmap.createBitmap(vectorDrawable.getIntrinsicWidth(),vectorDrawable.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(bitmap);
+        vectorDrawable.draw(canvas);
+        return BitmapDescriptorFactory.fromBitmap((bitmap));
     }
 
     @Override
@@ -162,4 +207,19 @@ public class HomeActivity extends AppCompatActivity implements OnMyLocationButto
     public void onProviderDisabled(@NonNull String provider) {
 
     }
+
+    public void musiqueSuivante(View view){
+        MediaPlayer mp;
+
+        mp=MediaPlayer.create(getApplicationContext(), getResources().getIdentifier("oui","raw",getPackageName()));
+
+        mp.start();
+    }
+
+    public void recentrer(View view){
+        map.moveCamera(CameraUpdateFactory.newLatLngZoom(postionUser, 20));
+    }
+
+
+
 }
