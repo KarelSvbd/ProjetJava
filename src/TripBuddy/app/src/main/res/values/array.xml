@@ -2,15 +2,45 @@
 <resources>
 
     <string-array name="items_name">
-        <item>Zoom 1</item>
-        <item>Zoom 2</item>
-        <item>Zoom 3</item>
+        <item>Auto</item>
+        <item>Landscape</item>
+        <item>Portait</item>
     </string-array>
 
     <string-array name="items_value">
-        <item>10</item>
-        <item>20</item>
-        <item>30</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+    </string-array>
+    <string-array name="items_incli">
+        <item>Aucun</item>
+        <item>Faible</item>
+        <item>Moyenne</item>
+        <item>Elevée</item>
+    </string-array>
+    <string-array name="items_inclivalue">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+    </string-array>
+    <string-array name="items_zoom">
+        <item>Faible</item>
+        <item>Moyenne</item>
+        <item>Elevée</item>
+    </string-array>
+    <string-array name="items_zoomvalue">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+    </string-array>
+    <string-array name="items_speed">
+        <item>km/h</item>
+        <item>Mph</item>
+    </string-array>
+    <string-array name="items_speedvalue">
+        <item>1</item>
+        <item>2</item>
     </string-array>
 
 </resources>

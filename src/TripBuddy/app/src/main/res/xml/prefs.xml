@@ -13,12 +13,34 @@
             />
 
     </PreferenceCategory>
-    <PreferenceCategory android:title="Zoom de la carte">
+    <PreferenceCategory android:title="Inclinaisons">
         <ListPreference
             android:title="Orientation"
             android:key="Orientation"
             android:entries="@array/items_name"
             android:entryValues="@array/items_value"
+            android:defaultValue="false"/>
+        <ListPreference
+            android:title="Inclinaisons"
+            android:key="Orientation"
+            android:entries="@array/items_incli"
+            android:entryValues="@array/items_inclivalue"
+            android:defaultValue="false"/>
+    </PreferenceCategory>
+    <PreferenceCategory android:title="Zoom">
+        <ListPreference
+            android:title="Zoom de la carte"
+            android:key="Orientation"
+            android:entries="@array/items_zoom"
+            android:entryValues="@array/items_zoomvalue"
+            android:defaultValue="false"/>
+    </PreferenceCategory>
+    <PreferenceCategory android:title="Vitesse">
+        <ListPreference
+            android:title="Unité de vitesse"
+            android:key="Orientation"
+            android:entries="@array/items_speed"
+            android:entryValues="@array/items_speedvalue"
             android:defaultValue="false"/>
     </PreferenceCategory>
 </PreferenceScreen>
