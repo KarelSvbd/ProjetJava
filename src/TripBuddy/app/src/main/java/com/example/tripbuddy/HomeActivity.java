@@ -1,3 +1,15 @@
+/*
+    Projet  : TripBuddy
+    Desc.   : Créer une application qui accompagne un voyageur en voiture
+                - Afficher la position de l'utilisateur sur une carte
+                - Pouvoir changer sa musique
+    Version : 0.1
+    Date    : 01.12.2021
+
+    Auteurs : José Ferreira, Rui Mota, Karel Vilém Svoboda
+    Classe  : I.DA-P4A / Atelier Smartphone
+
+*/
 package com.example.tripbuddy;
 
 import androidx.annotation.NonNull;
@@ -78,6 +90,9 @@ public class HomeActivity extends AppCompatActivity implements OnMyLocationButto
     private GoogleMap map;
 
     private LatLng postionUser = new LatLng(1,1);
+    private Location positionUserLocal;
+
+    Carte carte;
 
 
 
@@ -118,7 +133,7 @@ public class HomeActivity extends AppCompatActivity implements OnMyLocationButto
         }
 
         getLocation();
-        
+
 
 
     }
@@ -152,10 +167,10 @@ public class HomeActivity extends AppCompatActivity implements OnMyLocationButto
     public void onMapReady(@NonNull GoogleMap googleMap) {
         googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(postionUser, 5));
         map = googleMap;
+
         markerUser = map.addMarker(new MarkerOptions()
                 .position(postionUser)
                 .title("Chargement"));
-
 
     }
 
@@ -184,10 +199,19 @@ public class HomeActivity extends AppCompatActivity implements OnMyLocationButto
                 .icon(bitmapDescriptorFromVector(getApplicationContext(), R.drawable.ic_baseline_directions_car_24)));
         TextView lblSpeed = findViewById(R.id.lblSpeed);
 
+        positionUserLocal = location;
+
+        //TO DO : Interchanger
         lblSpeed.setText(String.valueOf(Math.round(location.getSpeed() * 3.6)));
+
+        carte = new Carte(map, location);
 
     }
 
+
+
+
+    //Permet de chercher le Bitmap afin de changer l'icone de l'utilisateur
     private BitmapDescriptor bitmapDescriptorFromVector(Context context, Integer vectorResId){
         Drawable vectorDrawable = ContextCompat.getDrawable(context, vectorResId);
         vectorDrawable.setBounds(0,0,vectorDrawable.getIntrinsicWidth(),
@@ -216,8 +240,9 @@ public class HomeActivity extends AppCompatActivity implements OnMyLocationButto
         mp.start();
     }
 
+
     public void recentrer(View view){
-        map.moveCamera(CameraUpdateFactory.newLatLngZoom(postionUser, 20));
+        carte.recentrer(view);
     }
 
 

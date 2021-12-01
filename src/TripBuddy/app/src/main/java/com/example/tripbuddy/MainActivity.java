@@ -1,3 +1,13 @@
+/*
+    Projet  : TripBuddy
+    Desc.   :
+    Version : 0.1
+    Date    : 01.12.2021
+
+    Auteurs : José Ferreira
+    Classe  : I.DA-P4A / Atelier Smartphone
+
+*/
 package com.example.tripbuddy;
 
 import androidx.appcompat.app.AppCompatActivity;
