@@ -20,7 +20,9 @@
         <activity
             android:name=".HomeActivity"
            android:label="Home"/>
-
+        <activity
+            android:name=".ModeR"
+            android:label="ModeR"/>
         <activity
             android:name=".UserActivity"
             android:label="User"/>

@@ -105,6 +105,7 @@ public class HomeActivity extends AppCompatActivity implements OnMyLocationButto
         setContentView(R.layout.activity_home);
         btnProf = (Button) findViewById(R.id.btnProfil);
 
+
         btnProf.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -142,7 +143,6 @@ public class HomeActivity extends AppCompatActivity implements OnMyLocationButto
     @SuppressLint("MissingPermission")
     private void getLocation() {
         try{
-            System.out.println("ales");
             locationManager = (LocationManager) getApplicationContext().getSystemService(LOCATION_SERVICE);
             locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000, 5, HomeActivity.this);
         }catch (Exception e){
@@ -156,6 +156,10 @@ public class HomeActivity extends AppCompatActivity implements OnMyLocationButto
 
     public  void openSettings(){
         Intent intent = new Intent(this, Preference.class);
+        startActivity(intent);
+    }
+    public  void openModeR(){
+        Intent intent = new Intent(this, ModeR.class);
         startActivity(intent);
     }
     public  void openUser(){
@@ -243,6 +247,10 @@ public class HomeActivity extends AppCompatActivity implements OnMyLocationButto
 
     public void recentrer(View view){
         carte.recentrer(view);
+    }
+
+    public void modeR(View view){
+        openModeR();
     }
 
 
