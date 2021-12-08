@@ -94,6 +94,11 @@ public class HomeActivity extends AppCompatActivity implements OnMyLocationButto
 
     Carte carte;
 
+    MediaPlayer mp;
+    int totalTime;
+
+
+
 
 
 
@@ -135,6 +140,7 @@ public class HomeActivity extends AppCompatActivity implements OnMyLocationButto
 
         getLocation();
 
+        //Media Player
 
 
     }
@@ -237,11 +243,7 @@ public class HomeActivity extends AppCompatActivity implements OnMyLocationButto
     }
 
     public void musiqueSuivante(View view){
-        MediaPlayer mp;
 
-        mp=MediaPlayer.create(getApplicationContext(), getResources().getIdentifier("oui","raw",getPackageName()));
-
-        mp.start();
     }
 
 
@@ -252,6 +254,8 @@ public class HomeActivity extends AppCompatActivity implements OnMyLocationButto
     public void modeR(View view){
         openModeR();
     }
+
+
 
 
 

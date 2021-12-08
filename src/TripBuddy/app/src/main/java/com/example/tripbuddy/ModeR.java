@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
@@ -29,6 +30,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -40,44 +42,41 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.karumi.dexter.Dexter;
+import com.karumi.dexter.PermissionToken;
+import com.karumi.dexter.listener.PermissionDeniedResponse;
+import com.karumi.dexter.listener.PermissionGrantedResponse;
+import com.karumi.dexter.listener.PermissionRequest;
+import com.karumi.dexter.listener.single.PermissionListener;
 
-public class ModeR extends AppCompatActivity implements  ActivityCompat.OnRequestPermissionsResultCallback, LocationListener {
+public class ModeR extends AppCompatActivity {
 
-    TextView lblSpeed;
-    private LocationManager locationManager;
-    public static Location _location;
-
-    @RequiresApi(api = Build.VERSION_CODES.M)
+    ListView listView;
+    String[] items;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_moder);
-        lblSpeed = findViewById(R.id.lblVitesse);
-        lblSpeed.setText("0");
-
-        getLocation();
-        System.out.println(Gravity.BOTTOM);
+        listView = (ListView)findViewById(R.id.listView);
+        runtimePermission();
     }
 
-    @Override
-    public void onLocationChanged(@NonNull Location location) {
+    public void runtimePermission(){
+        Dexter.withContext(this).withPermission(Manifest.permission.READ_EXTERNAL_STORAGE)
+                .withListener(new PermissionListener() {
+                    @Override
+                    public void onPermissionGranted(PermissionGrantedResponse permissionGrantedResponse) {
 
-        TextView lblSpeed = findViewById(R.id.lblSpeed);
-        _location = location;
-        System.out.println("test");
-        lblSpeed.setText(String.valueOf(Math.round(location.getSpeed() * 3.6)));
+                    }
 
-    }
-    SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.maps);
+                    @Override
+                    public void onPermissionDenied(PermissionDeniedResponse permissionDeniedResponse) {
 
-    @RequiresApi(api = Build.VERSION_CODES.M)
-    @SuppressLint("MissingPermission")
-    private void getLocation() {
-        try{
-            locationManager = (LocationManager) getApplicationContext().getSystemService(LOCATION_SERVICE);
-            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000, 5, ModeR.this);
-        }catch (Exception e){
-            System.out.print(e);
-        }
+                    }
+
+                    @Override
+                    public void onPermissionRationaleShouldBeShown(PermissionRequest permissionRequest, PermissionToken permissionToken) {
+
+                    }
+                });
     }
 }
