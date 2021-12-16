@@ -36,6 +36,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -46,10 +52,13 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import org.json.JSONObject;
+
 public class Carte extends AppCompatActivity {
 
     GoogleMap _map;
     Location _location;
+
 
     public LatLng getLatLng(){
         return  new LatLng(_location.getLatitude(), _location.getLongitude());
@@ -67,11 +76,13 @@ public class Carte extends AppCompatActivity {
 
     //Permet de recentrer la carte sur la position de l'utilisateur
     public void recentrer(View view){
-        _map.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(_location.getLatitude(), _location.getLongitude()), 20));
+        _map.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(_location.getLatitude(), _location.getLongitude()), 15));
     }
 
     public Carte(GoogleMap map, Location location){
         _map = map;
         _location = location;
     }
+
+
 }

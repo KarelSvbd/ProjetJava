@@ -17,6 +17,7 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
+import android.app.VoiceInteractor;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentSender;
@@ -41,6 +42,13 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.common.api.ResolvableApiException;
 import com.google.android.gms.location.LocationCallback;
@@ -61,6 +69,8 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
@@ -75,6 +85,10 @@ import androidx.core.content.ContextCompat;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.text.DecimalFormat;
 
 public class HomeActivity extends AppCompatActivity implements OnMyLocationButtonClickListener, OnMyLocationClickListener, OnMapReadyCallback, ActivityCompat.OnRequestPermissionsResultCallback, LocationListener {
@@ -83,19 +97,23 @@ public class HomeActivity extends AppCompatActivity implements OnMyLocationButto
     private LocationRequest locationRequest;
     private LocationManager locationManager;
     private Marker markerUser;
+    private TextView lblTemperature;
 
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 1;
     private boolean permissionDenied = false;
 
     private GoogleMap map;
 
-    private LatLng postionUser = new LatLng(1,1);
+    private LatLng postionUser = new LatLng(46.204391,6.143158);
     private Location positionUserLocal;
 
     Carte carte;
 
     MediaPlayer mp;
     int totalTime;
+    private RequestQueue queue;
+
+
 
 
 
@@ -109,6 +127,7 @@ public class HomeActivity extends AppCompatActivity implements OnMyLocationButto
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         btnProf = (Button) findViewById(R.id.btnProfil);
+        lblTemperature = (TextView) findViewById(R.id.lblTempreature);
 
 
         btnProf.setOnClickListener(new View.OnClickListener() {
@@ -140,7 +159,6 @@ public class HomeActivity extends AppCompatActivity implements OnMyLocationButto
 
         getLocation();
 
-        //Media Player
 
 
     }
@@ -201,7 +219,7 @@ public class HomeActivity extends AppCompatActivity implements OnMyLocationButto
     public void onLocationChanged(@NonNull Location location) {
 
         postionUser = new LatLng(location.getLatitude(), location.getLongitude());
-        map.moveCamera(CameraUpdateFactory.newLatLngZoom(postionUser, 20));
+        map.moveCamera(CameraUpdateFactory.newLatLngZoom(postionUser, 15));
         markerUser.remove();
         markerUser = map.addMarker(new MarkerOptions()
                 .position(postionUser)
@@ -215,6 +233,8 @@ public class HomeActivity extends AppCompatActivity implements OnMyLocationButto
         lblSpeed.setText(String.valueOf(Math.round(location.getSpeed() * 3.6)));
 
         carte = new Carte(map, location);
+
+        getDonnesMeteo();
 
     }
 
@@ -248,14 +268,43 @@ public class HomeActivity extends AppCompatActivity implements OnMyLocationButto
 
 
     public void recentrer(View view){
-        carte.recentrer(view);
+        //carte.recentrer(view);
+
+
     }
 
     public void modeR(View view){
         openModeR();
     }
 
+    public void getDonnesMeteo(){
+        queue = Volley.newRequestQueue(this);
 
+        JsonObjectRequest objectRequest = new JsonObjectRequest(
+                Request.Method.GET,
+                "https://api.openweathermap.org/data/2.5/weather?lon=6.143158&lat=46.204391&appid=a4c7fb610faa96a45c7d9e50efa24f58",
+                null,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        String APIresponse = response.toString();
+
+                        APIresponse =  APIresponse.substring(APIresponse.indexOf("\"temp\": ") + 1, APIresponse.indexOf(","));
+
+                        System.out.println(APIresponse);
+                        //lblTemperature.setText(response[""]);
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        System.out.println(error.toString());
+                    }
+                }
+        );
+
+        queue.add(objectRequest);
+    }
 
 
 
