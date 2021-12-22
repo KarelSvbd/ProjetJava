@@ -236,6 +236,11 @@ public class HomeActivity extends AppCompatActivity implements OnMyLocationButto
 
         getDonnesMeteo();
 
+        /*code pour API de meteo*/
+
+        //Get de l'API de meteo
+        //https://api.openweathermap.org/data/2.5/weather?lon=6.143158&lat=46.204391&appid=a4c7fb610faa96a45c7d9e50efa24f58
+
     }
 
 
