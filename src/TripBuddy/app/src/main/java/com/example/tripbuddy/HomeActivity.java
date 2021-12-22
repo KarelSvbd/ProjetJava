@@ -2,7 +2,8 @@
     Projet  : TripBuddy
     Desc.   : Créer une application qui accompagne un voyageur en voiture
                 - Afficher la position de l'utilisateur sur une carte
-                - Pouvoir changer sa musique
+                - Afficher la vitesse de l'utilisateur
+                - Afficher certaines donnes meteo
     Version : 0.1
     Date    : 01.12.2021
 
@@ -17,10 +18,8 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
-import android.app.VoiceInteractor;
 import android.content.Context;
 import android.content.Intent;
-import android.content.IntentSender;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.drawable.Drawable;
@@ -32,30 +31,13 @@ import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.content.Intent;
-import android.os.Handler;
-import android.view.Menu;
-import android.os.Bundle;
-import android.view.MenuItem;
-import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
-import android.widget.Button;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.google.android.gms.common.api.ApiException;
-import com.google.android.gms.common.api.ResolvableApiException;
-import com.google.android.gms.location.LocationCallback;
-import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.location.LocationSettingsRequest;
-import com.google.android.gms.location.LocationSettingsResponse;
-import com.google.android.gms.location.LocationSettingsStatusCodes;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.GoogleMap.OnMyLocationButtonClickListener;
@@ -67,27 +49,17 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-
 import android.Manifest;
 import android.content.pm.PackageManager;
 import android.location.Location;
-import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import android.widget.TextView;
-import android.widget.Toast;
 
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
+import org.json.*;
 
 import java.text.DecimalFormat;
 
@@ -112,14 +84,6 @@ public class HomeActivity extends AppCompatActivity implements OnMyLocationButto
     MediaPlayer mp;
     int totalTime;
     private RequestQueue queue;
-
-
-
-
-
-
-
-
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
@@ -177,25 +141,32 @@ public class HomeActivity extends AppCompatActivity implements OnMyLocationButto
 
     }
 
-
+    //Ouvre la page des paramêtres
     public  void openSettings(){
         Intent intent = new Intent(this, Preference.class);
         startActivity(intent);
     }
+    //Ouvre la page du modeR (non implémenté)
     public  void openModeR(){
         Intent intent = new Intent(this, ModeR.class);
         startActivity(intent);
     }
+    //Ouvre la page openUser (non implémenté)
     public  void openUser(){
         Intent Intent2 = new Intent(this,UserActivity.class);
         startActivity(Intent2);
     }
 
+    //S'execute après la creation de la map
+    //Génére une carte et bouge la camera sur une position constante et y ajoute un marker
     @Override
     public void onMapReady(@NonNull GoogleMap googleMap) {
+        //Définition de la postion en haut dans l'initialisation du projet
+        //Niveau de zoom élevé
         googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(postionUser, 5));
         map = googleMap;
 
+        //Ajout tu marker
         markerUser = map.addMarker(new MarkerOptions()
                 .position(postionUser)
                 .title("Chargement"));
@@ -215,6 +186,10 @@ public class HomeActivity extends AppCompatActivity implements OnMyLocationButto
 
     }
 
+    //Se produit à chaque changement de localisation
+    //Permet d'actualiser les variables de position de l'utlisateur
+    //Permet de modifier l'icone de l'utlisateur
+    //Permet de mettre à jour les données de la vitesse
     @Override
     public void onLocationChanged(@NonNull Location location) {
 
@@ -229,7 +204,6 @@ public class HomeActivity extends AppCompatActivity implements OnMyLocationButto
 
         positionUserLocal = location;
 
-        //TO DO : Interchanger
         lblSpeed.setText(String.valueOf(Math.round(location.getSpeed() * 3.6)));
 
         carte = new Carte(map, location);
@@ -282,6 +256,7 @@ public class HomeActivity extends AppCompatActivity implements OnMyLocationButto
         openModeR();
     }
 
+    //Permet de faire un appel à l'API openweather
     public void getDonnesMeteo(){
         queue = Volley.newRequestQueue(this);
 
@@ -294,10 +269,9 @@ public class HomeActivity extends AppCompatActivity implements OnMyLocationButto
                     public void onResponse(JSONObject response) {
                         String APIresponse = response.toString();
 
-                        APIresponse =  APIresponse.substring(APIresponse.indexOf("\"temp\": ") + 1, APIresponse.indexOf(","));
+                        //APIresponse =  APIresponse.substring(APIresponse.indexOf("\"temp\": ") + 1, APIresponse.indexOf(","));
 
                         System.out.println(APIresponse);
-                        //lblTemperature.setText(response[""]);
                     }
                 },
                 new Response.ErrorListener() {
