@@ -215,6 +215,7 @@ public class HomeActivity extends AppCompatActivity implements OnMyLocationButto
         //Get de l'API de meteo
         //https://api.openweathermap.org/data/2.5/weather?lon=6.143158&lat=46.204391&appid=a4c7fb610faa96a45c7d9e50efa24f58
 
+
     }
 
 
@@ -269,9 +270,18 @@ public class HomeActivity extends AppCompatActivity implements OnMyLocationButto
                     public void onResponse(JSONObject response) {
                         String APIresponse = response.toString();
 
-                        //APIresponse =  APIresponse.substring(APIresponse.indexOf("\"temp\": ") + 1, APIresponse.indexOf(","));
+                        String jsonString = APIresponse ; //assign your JSON String here
+                        JSONObject obj = null;
+                        try {
+                            obj = new JSONObject(jsonString);
+                            JSONArray meteo = obj.getJSONArray("main");
+                            for(Integer i = 0; i < 100; i++){
+                                System.out.println(meteo.getString(i));
 
-                        System.out.println(APIresponse);
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
                     }
                 },
                 new Response.ErrorListener() {
